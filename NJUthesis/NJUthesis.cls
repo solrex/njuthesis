@@ -155,7 +155,7 @@
 \newcommand\reviewerb[1]{\def\NJUT@nlc@value@reviewerb{#1}}
 \newcommand\reviewerc[1]{\def\NJUT@nlc@value@reviewerc{#1}}
 \newcommand\reviewerd[1]{\def\NJUT@nlc@value@reviewerd{#1}}
-\newcommand\nlcdate[1]{\def\NJUT@nlc@value@date{#1}}
+\newcommand\nlcfootdate[1]{\def\NJUT@nlc@value@footdate{#1}}
 %%
 %% command to fill string values in the title page
 %%
@@ -168,9 +168,9 @@
 \newcommand\studentnum[1]{\def\NJUT@value@studentnum{#1}}
 \newcommand\grade[1]{\def\NJUT@value@grade{#1}}
 \newcommand\advisor[1]{\def\NJUT@value@advisor{#1}}
-
 \newcommand\major[1]{\def\NJUT@value@major{#1}}
 \newcommand\researchfield[1]{\def\NJUT@value@researchfield{#1}}
+\newcommand\footdate[1]{\def\NJUT@value@footdate{#1}}
 \newcommand\submitdate[1]{\def\NJUT@value@submitdate{#1}}
 \newcommand\defenddate[1]{\def\NJUT@value@defenddate{#1}}
 %%
@@ -234,7 +234,7 @@
     }
     \vskip \stretch{2}
     \begin{center}
-      {\kaishu\zihao{3}  \NJUT@nlc@value@date}
+      {\kaishu\zihao{3}  \NJUT@nlc@value@footdate}
     \end{center}
   \fi
   \if@twoside\cleardoublepage\else\clearpage\fi
@@ -260,21 +260,24 @@
       \NJUT@label@researchfield & \NJUTunderline[310pt]{\NJUT@value@researchfield}\\
     \end{tabular}\\
   \vskip \stretch{1}
-  {\bf\kaishu\zihao{4} \NJUT@nlc@value@date}
+  {\bf\kaishu\zihao{4} \NJUT@value@footdate}
   \end{center}
   \clearpage
   \ifNJUT@backinfo
     \thispagestyle{empty}
     \vspace*{\stretch{1}}
     {\bf\kaishu\zihao{-3}
-    \begin{tabular}{rl}
-      \NJUT@label@studentnum &£º \NJUT@value@studentnum\\
-      \NJUT@label@defenddate &£º \NJUT@value@defenddate\\
-      \NJUT@label@advisor &£º \NJUT@label@advisorsign\\
+    \noindent\begin{tabular}{rl}
+      \NJUT@back@label@studentnum &£º \NJUT@value@studentnum\\
+      \NJUT@back@label@defenddate &£º \NJUT@value@defenddate\\
+      \NJUT@back@label@advisor &£º \NJUT@back@label@sign\\
     \end{tabular}
     }
   \fi
 }
+%%
+%% command to fill string values in the english title page
+%%
 \newcommand\englishtitle[1]{\def\NJUT@value@englishtitle{#1}}
 \newcommand\englishauthor[1]{\def\NJUT@value@englishauthor{#1}}
 \newcommand\englishadvisor[1]{\def\NJUT@value@englishadvisor{#1}}
@@ -282,6 +285,9 @@
 \newcommand\englishdate[1]{\def\NJUT@value@englishdate{#1}}
 \newcommand\englishdegree[1]{\def\NJUT@value@englishdegree{#1}}
 \newcommand\englishmajor[1]{\def\NJUT@value@englishmajor{#1}}
+%%
+%% english title page
+%%
 \newcommand\makeenglishtitle{%
   \cleardoublepage
   \thispagestyle{empty}
@@ -309,6 +315,7 @@
     \cleardoublepage
   \fi
 }
+
 \fancypagestyle{plain}{%
   \fancyhf{}
   \fancyhead[C]{\small \leftmark}
@@ -316,60 +323,54 @@
   \renewcommand{\headrulewidth}{0.7pt}
 }
 \pagestyle{plain}
-\newenvironment{abstract}
-  {\thispagestyle{empty}%
-   \pdfbookmark[0]{\NJUT@label@abstract}{abstract}
-   \begin{center}
-     {\bf\kaishu\zihao{-2} \uuline{\NJUT@label@abstractbar}}
-   \end{center}
 
-   {\kaishu\zihao{4}%
-     \noindent \NJUT@label@abstractthesistitle%
-     \NJUTunderline[316pt]{\NJUT@value@title}
+\newenvironment{abstract}{
+  \thispagestyle{empty}%
+  \pdfbookmark[0]{\NJUT@abs@label@abstract}{abstract}
+  \begin{center}
+    {\bf\kaishu\zihao{-2} \uuline{\NJUT@abs@label@bar}}
+  \end{center}
 
-     \noindent \NJUTunderline[178pt]{\NJUT@value@major}%
-     \NJUT@label@abstractmajor%
-     \NJUTunderline[50pt]{\NJUT@value@grade} %
-     \NJUT@label@abstractauthor%
-     \NJUTunderline[60pt]{\NJUT@value@author}
+  {\kaishu\zihao{4}%
+    \noindent \NJUT@abs@label@title \NJUTunderline[316pt]{\NJUT@value@title}
 
-     \noindent \NJUT@label@abstractadvisor%
-     \NJUTunderline[252pt]{\NJUT@value@advisor}
-   }
-   \begin{center}
-     {\heiti\zihao{-3} \NJUT@label@abstract}
-   \end{center}
+    \noindent \NJUTunderline[178pt]{\NJUT@value@major} \NJUT@abs@label@major%
+    \NJUTunderline[50pt]{\NJUT@value@grade} \NJUT@abs@label@author%
+    \NJUTunderline[60pt]{\NJUT@value@author}
+
+    \noindent \NJUT@abs@label@advisor \NJUTunderline[252pt]{\NJUT@value@advisor}
   }
-  {}
-\newcommand\keywords[1]{%
-  \vspace{2ex}\noindent{\heiti \NJUT@label@keywords} #1}
-\newenvironment{englishabstract}
-  {\if@twoside\cleardoublepage\else\clearpage\fi
-   \thispagestyle{empty}
-   \pdfbookmark[0]{\NJUT@label@englishabstract}{englishabstract}
-   \begin{center}
-     {\bf\kaishu\zihao{-2} \uuline{\NJUT@label@englishabstractbar}}
-   \end{center}
+  \begin{center}
+    {\heiti\zihao{-3} \NJUT@abs@label@abstract}
+  \end{center}
+}{}
 
-   {\zihao{4}%
-     \begin{description}[font=\normalfont, leftmargin=4em]
-       \item[THESIS:] \NJUT@value@englishtitle
+\newcommand\keywords[1]{\vspace{2ex}\noindent{\heiti \NJUT@abs@label@keywords} #1}
 
-       \item[SPECIALIZATION:] \NJUT@value@englishmajor
+\newenvironment{englishabstract}{
+  \if@twoside\cleardoublepage\else\clearpage\fi
+  \thispagestyle{empty}
+  \pdfbookmark[0]{\NJUT@abs@label@englishabstract}{englishabstract}
+  \begin{center}
+    {\bf\kaishu\zihao{-2} \uuline{\NJUT@abs@label@englishbar}}
+  \end{center}
 
-       \item[POSTGRADUATE:] \NJUT@value@englishauthor
-
-       \item[MENTOR:] \NJUT@value@englishadvisor
-     \end{description}
-
-   \begin{center}
-     {\bf\zihao{-3} \NJUT@label@englishabstract}
-   \end{center}
-   }
+  {\zihao{4}%
+    \begin{description}[font=\normalfont, leftmargin=4em]
+      \item[THESIS:] \NJUT@value@englishtitle
+      \item[SPECIALIZATION:] \NJUT@value@englishmajor
+      \item[POSTGRADUATE:] \NJUT@value@englishauthor
+      \item[MENTOR:] \NJUT@value@englishadvisor
+    \end{description}
   }
-  {}
+  \begin{center}
+   {\bf\zihao{-3} \NJUT@abs@label@englishabstract}
+  \end{center}
+}{}
+
 \newcommand\englishkeywords[1]{%
-  \vspace{2ex}\noindent{\bf \NJUT@label@englishkeywords} #1}
+  \vspace{2ex}\noindent{\bf \NJUT@abs@label@englishkeywords} #1}
+
 \renewcommand\tableofcontents{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
@@ -380,8 +381,10 @@
     \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
     \@starttoc{toc}%
     \if@restonecol\twocolumn\fi
-    }
+}
+
 \addtocontents{toc}{\let\string\CTEX@spaceChar\relax}
+
 \newcommand\Nchapter[1]{%
   \if@mainmatter%
     \@mainmatterfalse%
@@ -390,6 +393,7 @@
   \else
     \chapter{#1}%
   \fi}
+
 \def\@dottedtocline#1#2#3#4#5{%
   \ifnum #1>\c@tocdepth \else
     \vskip \z@ \@plus.2\p@
@@ -479,26 +483,29 @@
        {\@latex@warning{Empty `publications' environment}}%
       \endlist}
 \newenvironment{resume}
-  {\Nchapter{\NJUT@label@resume}}
-  {}
-\newenvironment{Publications}[1]
-     {\noindent {\heiti \NJUT@label@publications}%
-      \list{\@biblabel{\@arabic\c@enumiv}}%
-           {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-       {\@latex@warning{Empty `publications' environment}}%
-      \endlist}
+{\Nchapter{\NJUT@label@resume}}
+{}
+\newenvironment{Publications}[1]{
+  \noindent {\heiti \NJUT@label@publications}%
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+  {\settowidth\labelwidth{\@biblabel{#1}}%
+  \leftmargin\labelwidth
+  \advance\leftmargin\labelsep
+  \@openbib@code
+  \usecounter{enumiv}%
+  \let\p@enumiv\@empty
+  \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty \clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m
+}{
+  \def\@noitemerr
+    {\@latex@warning{Empty `publications' environment}}%
+  \endlist
+}
+
 \newenvironment{resumesection}[1]
   {{\noindent\normalfont\bfseries #1}
    \list{}{\labelwidth\z@

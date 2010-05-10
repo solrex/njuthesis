@@ -48,7 +48,9 @@
 %% 封面部分
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 国家图书馆封面内容
+%
+% 国家图书馆封面内容——仅博士需要填写并保证模板参数选择了 phd
+%
 \classification{}
 \confidential{}
 \UDC{}
@@ -61,34 +63,35 @@
 \reviewerb{XXX 教授}
 \reviewerc{XXX 教授}
 \reviewerd{XXX 教授}
-\nlcdate{2010~年~5~月~1~日}
+\nlcfootdate{2010~年~5~月~1~日}
 
 % 南大中文封面内容
 \title{南京大学学位论文~\LaTeX{}~模板}
 \author{杨文博}
-\studentnum{　MGXXXXXX}
+\studentnum{~MGXXXXXX}
 \grade{200X}
 \advisor{XXX~~教授}
 \major{概率论与数理统计}
 \researchfield{时间序列}
+\footdate{2010~年~5~月}
 \submitdate{2010~年~5~月~10~日}
 \defenddate{2010~年~6~月~1~日}
 
-  % 英文封面内容
-  \englishtitle{\LaTeX{} Thesis Template of Nanjing University}
-  \englishauthor{Wenbo Yang}
-  \englishadvisor{Professor XX XXX}
-  \englishinstitute{Mathematics Department\\
-   Nanjing University}
-  \englishdegree{Master}
-  \englishmajor{Probability Theory and Mathematical Statistics}
-  \englishdate{May 2010}
+% 英文封面内容
+\englishtitle{\LaTeX{} Thesis Template of Nanjing University}
+\englishauthor{Wenbo Yang}
+\englishadvisor{Professor XX XXX}
+\englishinstitute{Mathematics Department\\
+ Nanjing University}
+\englishdegree{PhD}
+\englishmajor{Probability Theory and Mathematical Statistics}
+\englishdate{May 2010}
 
-  % 封面
-  \maketitle
+% 封面
+\maketitle
 
-  % 英文封面
-  \makeenglishtitle
+% 英文封面
+\makeenglishtitle
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -123,12 +126,13 @@ guideline for writing the thesis is also included.
 
 
 
-  % 目录
-  \tableofcontents
-  % 表格目录
-  \listoftables
-  % 插图目录
-  \listoffigures
+% 目录
+\tableofcontents
+% 以下两个目录可根据具体情况注释掉
+% 表格目录
+\listoftables
+% 插图目录
+\listoffigures
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
