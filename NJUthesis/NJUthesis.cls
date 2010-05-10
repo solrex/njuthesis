@@ -318,14 +318,13 @@
 
 \fancypagestyle{plain}{%
   \fancyhf{}
-  \fancyhead[C]{\small \leftmark}
+  \fancyhead[C]{\if@mainmatter\small \leftmark\fi}
   \fancyfoot[C]{\small ~\thepage~}
-  \renewcommand{\headrulewidth}{0.7pt}
+  \renewcommand{\headrulewidth}{\if@mainmatter 0.7pt\else 0pt \fi}
 }
 \pagestyle{plain}
 
 \newenvironment{abstract}{
-  \thispagestyle{empty}%
   \pdfbookmark[0]{\NJUT@abs@label@abstract}{abstract}
   \begin{center}
     {\bf\kaishu\zihao{-2} \uuline{\NJUT@abs@label@bar}}
@@ -349,7 +348,6 @@
 
 \newenvironment{englishabstract}{
   \if@twoside\cleardoublepage\else\clearpage\fi
-  \thispagestyle{empty}
   \pdfbookmark[0]{\NJUT@abs@label@englishabstract}{englishabstract}
   \begin{center}
     {\bf\kaishu\zihao{-2} \uuline{\NJUT@abs@label@englishbar}}
