@@ -41,16 +41,24 @@
 %%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{NJUthesis}
-  [2010/04/20 v0.1 NJUthesis
+  [2010/05/01 v0.2 NJUthesis
    document class]
+%%
+%% options
+%%
 \newif\ifNJUT@backinfo \NJUT@backinfotrue
 \DeclareOption{nobackinfo}{\NJUT@backinfofalse}
 \newif\ifNJUT@dvips \NJUT@dvipsfalse
+\newif\ifNJUT@phd \NJUT@phdfalse
+\newif\ifNJUT@master \NJUT@masterfalse
+\DeclareOption{phd}{\NJUT@phdtrue}
+\DeclareOption{master}{\NJUT@mastertrue}
 \DeclareOption{dvips}{\NJUT@dvipstrue}
 \DeclareOption{dvipdfm}{\NJUT@dvipsfalse}
 \DeclareOption{pdftex}{\NJUT@dvipsfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
+
 \LoadClass[cs4size,a4paper,fancyhdr,fntef]{ctexbook}[2005/11/25]
 %% check pdfTeX mode
 \RequirePackage{ifpdf}
@@ -104,6 +112,7 @@
 \renewcommand{\floatpagefraction}{0.80}
 %%
 %% Bib styles and DIYed \cite commands.
+%%
 \bibliographystyle{NJUthesis}
 %% Author-year mode label with numerical mode indexes.
 %% Jack (2000)
@@ -131,6 +140,25 @@
 \def\NJUT@underline[#1]#2{%
   \CTEXunderline{\hbox to #1{\hfill#2\hfill}}}
 \def\NJUTunderline{\@ifnextchar[\NJUT@underline\CTEXunderline}
+%%
+%% command to file string values only in the National library cover page
+%%
+\newcommand\classification[1]{\def\NJUT@value@classification{#1}}
+\newcommand\confidential[1]{\def\NJUT@value@confidential{#1}}
+\newcommand\UDC[1]{\def\NJUT@value@UDC{#1}}
+\newcommand\titlelinea[1]{\def\NJUT@nlc@value@titlelinea{#1}}
+\newcommand\titlelineb[1]{\def\NJUT@nlc@value@titlelineb{#1}}
+\newcommand\titlelinec[1]{\def\NJUT@nlc@value@titlelinec{#1}}
+\newcommand\advisorinfo[1]{\def\NJUT@nlc@value@advisorinfo{#1}}
+\newcommand\chairman[1]{\def\NJUT@nlc@value@chairman{#1}}
+\newcommand\reviewera[1]{\def\NJUT@nlc@value@reviewera{#1}}
+\newcommand\reviewerb[1]{\def\NJUT@nlc@value@reviewerb{#1}}
+\newcommand\reviewerc[1]{\def\NJUT@nlc@value@reviewerc{#1}}
+\newcommand\reviewerd[1]{\def\NJUT@nlc@value@reviewerd{#1}}
+\newcommand\nlcdate[1]{\def\NJUT@nlc@value@date{#1}}
+%%
+%% command to fill string values in the title page
+%%
 \newcommand\school[1]{\def\NJUT@value@school{#1}}
 \newcommand\degree[1]{\def\NJUT@value@degree{#1}}
 \renewcommand\title[2][\NJUT@value@title]{%
@@ -140,15 +168,78 @@
 \newcommand\studentnum[1]{\def\NJUT@value@studentnum{#1}}
 \newcommand\grade[1]{\def\NJUT@value@grade{#1}}
 \newcommand\advisor[1]{\def\NJUT@value@advisor{#1}}
-\newcommand\advisorinstitute[1]{\def\NJUT@value@advisorinstitute{#1}}
+
 \newcommand\major[1]{\def\NJUT@value@major{#1}}
 \newcommand\researchfield[1]{\def\NJUT@value@researchfield{#1}}
 \newcommand\submitdate[1]{\def\NJUT@value@submitdate{#1}}
 \newcommand\defenddate[1]{\def\NJUT@value@defenddate{#1}}
+%%
+%% Make Chinese title page with/without National library cover page
+%%
 \renewcommand\maketitle{%
-  \cleardoublepage
+  \ifNJUT@phd
+    \cleardoublepage
+    \thispagestyle{empty}
+    \pdfbookmark[0]{NLC Cover}{nlccover}
+    {\songti\zihao{-4}
+      \NJUT@nlc@label@classification~
+      \NJUTunderline[150pt]{\NJUT@nlc@value@classification}
+      \hfill
+      \NJUT@nlc@label@confidential~
+      \NJUTunderline[150pt]{\NJUT@nlc@value@confidential}
+      \vskip 10pt
+      \NJUT@nlc@label@UDC~
+      \NJUTunderline[160pt]{\NJUT@nlc@value@UDC}
+    }
+    \vskip \stretch{2}
+    \begin{center}
+      \def\ULthickness{1pt}
+      {\kaishu\zihao{-0} \NJUT@nlc@label@title}
+      {\kaishu\zihao{1}
+        \vskip \stretch{1}
+        \NJUTunderline[9em]{~\NJUT@nlc@value@titlelinea~}\\
+        \NJUTunderline[9em]{~\NJUT@nlc@value@titlelineb~}\\
+        \NJUTunderline[9em]{~\NJUT@nlc@value@titlelinec~}\\
+      }
+      \vskip \stretch{1}
+      {\kaishu\zihao{4} \NJUT@nlc@label@quotetitle}
+      \vskip \stretch{1}
+      {\kaishu\zihao{1} \NJUTunderline{~\NJUT@value@author~}}
+      \vskip \stretch{1}
+      {\kaishu\zihao{4} \NJUT@nlc@label@author}
+    \end{center}
+    {\kaishu\zihao{4}
+      \vskip \stretch{1}
+      \noindent \NJUT@nlc@label@advisor \NJUTunderline[94pt]{\NJUT@value@advisor}
+
+      \noindent \NJUTunderline[\textwidth]{\NJUT@nlc@value@advisorinfo}
+
+      \noindent \NJUT@nlc@label@degree \NJUTunderline[8em]{\NJUT@value@degree}
+      \NJUT@nlc@label@major \NJUTunderline[164pt]{\NJUT@value@major}
+
+      \noindent \NJUT@nlc@label@submitdate \NJUTunderline[8em]{\NJUT@value@submitdate}
+      \NJUT@nlc@label@defenddate \NJUTunderline[134pt]{\NJUT@value@defenddate}
+
+      \noindent \NJUT@nlc@label@school \NJUTunderline[290pt]{}
+
+      \noindent \hfill \NJUT@nlc@label@chairman \NJUTunderline[9em]{\NJUT@nlc@value@chairman}
+
+      \noindent \hfill \NJUT@nlc@label@reviwer \NJUTunderline[9em]{\NJUT@nlc@value@reviewera}
+
+      \noindent \hfill \NJUTunderline[9em]{\NJUT@nlc@value@reviewerb}
+
+      \noindent \hfill \NJUTunderline[9em]{\NJUT@nlc@value@reviewerc}
+
+      \noindent \hfill \NJUTunderline[9em]{\NJUT@nlc@value@reviewerd}
+    }
+    \vskip \stretch{2}
+    \begin{center}
+      {\kaishu\zihao{3}  \NJUT@nlc@value@date}
+    \end{center}
+  \fi
+  \if@twoside\cleardoublepage\else\clearpage\fi
   \thispagestyle{empty}
-  \pdfbookmark[0]{Front cover}{cover}
+  \pdfbookmark[0]{NJU Cover}{cover}
   \begin{center}
     \vskip 10mm
     \includegraphics[width=1.96cm]{njulogo} \\
@@ -156,7 +247,7 @@
     \vskip 5mm
       {\bf\kaishu\zihao{1}  \NJUT@label@thesis}\\
     \vskip 5mm
-      {\bf\kaishu\zihao{1}  \NJUT@label@apply}\\
+      {\bf\kaishu\zihao{1} \NJUT@label@apply}\\
     \vskip \stretch{1}
     \bf\kaishu\zihao{3}
     \def\tabcolsep{1pt}
@@ -169,7 +260,7 @@
       \NJUT@label@researchfield & \NJUTunderline[310pt]{\NJUT@value@researchfield}\\
     \end{tabular}\\
   \vskip \stretch{1}
-  {\bf\kaishu\zihao{4} \NJUT@value@submitdate}
+  {\bf\kaishu\zihao{4} \NJUT@nlc@value@date}
   \end{center}
   \clearpage
   \ifNJUT@backinfo
