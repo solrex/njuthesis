@@ -81,7 +81,7 @@
   % 摘要
 \begin{abstract}
 
-本文是南京大学学位论文的~\LaTeX{}~模板，目前不支持博士学位论文的
+本文是南京大学学位论文的~\LaTeX{}~模板。目前不支持博士学位论文的
 国家图书馆封面和书脊，需另行制作。
 
 除了介绍~\LaTeX{}~文档类~\texttt{NJUthesis}~的用法外，本文还是一
@@ -130,6 +130,18 @@ guideline for writing the thesis is also included.
 注意：本文不支持国家图书馆的封面和书脊，只包含南大封面，因此博士论文需要
 作者单独制作国家图书馆格式的封面和书脊。
 
+下面是~TODO~列表：
+
+\begin{itemize}
+
+\item （高优先级）增加博士论文国家图书馆格式封面，此封面仅当~phd~作为模板参数时才会生成。
+
+\item （低优先级）增加本科生论文格式，当~bachelor~作为模板参数时生成本科生毕业论文格式。
+
+\item （低优先级）提供~UTF-8~格式，在此格式下提供对~Linux~系统的支持。
+
+\end{itemize}
+
 \section{系统要求}
 
 \texttt{NJUthesis}~宏包可以在目前大多数的~\TeX{}~系统中使用，例如~C\TeX{}、
@@ -140,7 +152,9 @@ guideline for writing the thesis is also included.
 最新的~\texttt{ctex}~宏包可以从~\url{http://www.ctex.org}~网站下载。
 
 此外，~\texttt{NJUthesis}~宏包还使用了宏包~amsmath、~amsthm、~amsfonts、
-~amssymb、~bm~和~hyperref。目前大多数的~\TeX{}~系统中都包含有这些宏包。
+~amssymb、~bm~、~geometry~、~enumitem~和~hyperref。
+目前大多数的~\TeX{}~系统中都包含有这些宏包。
+即使您系统中的宏包不全，您也可以到~CTAN~下载到这些宏包。
 
 最新的~C\TeX{}~套装（2.4.1~以上版本）中包含了以上列出的各种宏包，用户无需额外的设置即可使用。
 
@@ -160,6 +174,14 @@ guideline for writing the thesis is also included.
 这个模板来编写自己的学位论文。
 
 关于安装过程的问题可以参考~C\TeX{}-FAQ~以及其他~\LaTeX{}~教材。
+
+\section{编译方法}
+
+如果您使用~\texttt{BibTeX}~，那么在~Windows~下您可以直接双击~\texttt{make.bat}~
+或者在命令行当前目录下执行~\texttt{make}~来生成~pdf~文件。
+
+如果您不使用~\texttt{BibTeX}，那么您需要编辑~\texttt{make.bat}~内容去掉~\texttt{BibTeX}~
+命令。
 
 \section{宏包定制}
 
