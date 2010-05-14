@@ -299,7 +299,6 @@
     \cleardoublepage
   \fi
 }
-
 \fancypagestyle{plain}{%
   \fancyhf{}
   \fancyhead[C]{\if@mainmatter\small \leftmark\fi}
@@ -307,7 +306,6 @@
   \renewcommand{\headrulewidth}{\if@mainmatter 0.7pt\else 0pt \fi}
 }
 \pagestyle{plain}
-
 \newenvironment{abstract}{
   \pdfbookmark[0]{\NJUT@abs@label@abstract}{abstract}
   \begin{center}
@@ -327,9 +325,7 @@
     {\heiti\zihao{-3} \NJUT@abs@label@abstract}
   \end{center}
 }{}
-
 \newcommand\keywords[1]{\vspace{2ex}\noindent{\heiti \NJUT@abs@label@keywords} #1}
-
 \newenvironment{englishabstract}{
   \if@twoside\cleardoublepage\else\clearpage\fi
   \pdfbookmark[0]{\NJUT@abs@label@englishabstract}{englishabstract}
@@ -349,10 +345,8 @@
    {\bf\zihao{-3} \NJUT@abs@label@englishabstract}
   \end{center}
 }{}
-
 \newcommand\englishkeywords[1]{%
   \vspace{2ex}\noindent{\bf \NJUT@abs@label@englishkeywords} #1}
-
 \renewcommand\tableofcontents{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
@@ -364,9 +358,7 @@
     \@starttoc{toc}%
     \if@restonecol\twocolumn\fi
 }
-
 \addtocontents{toc}{\let\string\CTEX@spaceChar\relax}
-
 \newcommand\Nchapter[1]{%
   \if@mainmatter%
     \@mainmatterfalse%
@@ -464,9 +456,6 @@
      {\def\@noitemerr
        {\@latex@warning{Empty `publications' environment}}%
       \endlist}
-\newenvironment{resume}
-{\Nchapter{\NJUT@label@resume}}
-{}
 \newenvironment{Publications}[1]{
   \noindent {\heiti \NJUT@label@publications}%
   \list{\@biblabel{\@arabic\c@enumiv}}%
@@ -487,7 +476,9 @@
     {\@latex@warning{Empty `publications' environment}}%
   \endlist
 }
-
+\newenvironment{resume}
+{\Nchapter{\NJUT@label@resume}}
+{}
 \newenvironment{resumesection}[1]
   {{\noindent\normalfont\bfseries #1}
    \list{}{\labelwidth\z@

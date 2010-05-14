@@ -434,9 +434,9 @@
 \def\NJUT@value@englishmajor{}
 %    \end{macrocode}
 %
-% \subsubsection{封面的需要填写的值}
+% \subsubsection{封面中需要填写的字符串}
 %
-% 下面内容是封面中需要填写的值，以及它们的默认内容。
+% 下面内容是封面中需要填写的字符串，以及它们的默认内容。
 %
 %    \begin{macrocode}
 %%
@@ -477,7 +477,7 @@
 %</cfg>
 %    \end{macrocode}
 %
-% 下面的命令定义了用来填写上面一些值的命令，
+% 下面的命令定义了用来填写上面一些字符串的命令，
 % 你应该在文档中使用这些命令定义以上这些值。
 %
 %    \begin{macrocode}
@@ -678,8 +678,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{定义页眉页脚}
+%
+% 正文以前的内容没有页眉，页脚为罗马数字编码的页码。正文以后的内容页眉为
+% 章标题，页脚为阿拉伯数字编码的页码。
+%
 %    \begin{macrocode}
-
 \fancypagestyle{plain}{%
   \fancyhf{}
   \fancyhead[C]{\if@mainmatter\small \leftmark\fi}
@@ -687,7 +691,41 @@
   \renewcommand{\headrulewidth}{\if@mainmatter 0.7pt\else 0pt \fi}
 }
 \pagestyle{plain}
-
+%</cls>
+%    \end{macrocode}
+%
+% \subsection{摘要}
+%
+% 南大对摘要格式的要求是非常奇特的，为了达到南大的要求，我在摘要页花了很多工夫。
+%
+% \subsubsection{摘要页的标签}
+%
+%    \begin{macrocode}
+%<*cfg>
+%%
+%% labels in the abstract page
+%%
+\def\NJUT@abs@label@bar{南京大学研究生毕业论文中文摘要首页用纸}
+\def\NJUT@abs@label@englishbar{南京大学研究生毕业论文英文摘要首页用纸}
+\def\NJUT@abs@label@title{毕业论文题目：}
+\def\NJUT@abs@label@major{专业}
+\def\NJUT@abs@label@author{级硕士生姓名：}
+\def\NJUT@abs@label@advisor{指导教师（姓名、职称）：}
+\def\NJUT@abs@label@abstract{摘　要}
+\def\NJUT@abs@label@englishabstract{Abstract}
+\def\NJUT@abs@label@keywords{关键词：}
+\def\NJUT@abs@label@englishkeywords{Keywords:~}
+%</cfg>
+%    \end{macrocode}
+%
+% \subsubsection{摘要环境}
+%
+% \begin{macro}{abstract}
+%
+% 中文摘要环境，自动生成南京大学中文摘要页的纸头。
+%
+%    \begin{macrocode}
+%<*cls>
 \newenvironment{abstract}{
   \pdfbookmark[0]{\NJUT@abs@label@abstract}{abstract}
   \begin{center}
@@ -707,9 +745,23 @@
     {\heiti\zihao{-3} \NJUT@abs@label@abstract}
   \end{center}
 }{}
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\keywords{}}
+%
+% 关键词宏。
+%
+%    \begin{macrocode}
 \newcommand\keywords[1]{\vspace{2ex}\noindent{\heiti \NJUT@abs@label@keywords} #1}
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{englishabstract}
+%
+% 英文摘要环境，自动生成南京大学英文摘要页的纸头。
+%
+%     \begin{macrocode}
 \newenvironment{englishabstract}{
   \if@twoside\cleardoublepage\else\clearpage\fi
   \pdfbookmark[0]{\NJUT@abs@label@englishabstract}{englishabstract}
@@ -729,10 +781,24 @@
    {\bf\zihao{-3} \NJUT@abs@label@englishabstract}
   \end{center}
 }{}
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\englishkeywords{}}
+%
+% 生成英文关键词的宏。
+%    \begin{macrocode}
 \newcommand\englishkeywords[1]{%
   \vspace{2ex}\noindent{\bf \NJUT@abs@label@englishkeywords} #1}
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{目录}
+%
+% \begin{macro}{\tableofcontents}
+%
+% 生成目录的命令。
+%    \begin{macrocode}
 \renewcommand\tableofcontents{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
@@ -744,9 +810,18 @@
     \@starttoc{toc}%
     \if@restonecol\twocolumn\fi
 }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% 去掉目录中的中文空格。
+%    \begin{macrocode}
 \addtocontents{toc}{\let\string\CTEX@spaceChar\relax}
-
+%    \end{macrocode}
+%
+% \begin{macro}{\Nchapter{}}
+%
+% 用于产生没有编号但在目录中列出的章。
+%    \begin{macrocode}
 \newcommand\Nchapter[1]{%
   \if@mainmatter%
     \@mainmatterfalse%
@@ -755,7 +830,13 @@
   \else
     \chapter{#1}%
   \fi}
+%    \end{macrocode}
+% \end{macro}
 
+% \begin{macro}{\@dottedtocline}
+%
+% 改变缺省的目录中的点线为中文习惯
+%    \begin{macrocode}
 \def\@dottedtocline#1#2#3#4#5{%
   \ifnum #1>\c@tocdepth \else
     \vskip \z@ \@plus.2\p@
@@ -771,6 +852,13 @@
      \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor #5}%
      \par}%
   \fi}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\l@part}
+%
+% 改变缺省的目录中的点线为中文习惯
+%    \begin{macrocode}
 \renewcommand*\l@part[2]{%
   \ifnum \c@tocdepth >-2\relax
     \addpenalty{-\@highpenalty}%
@@ -788,6 +876,13 @@
          \everypar{\global\@nobreakfalse\everypar{}}%
     \endgroup
   \fi}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\l@chapter}
+%
+% 改变缺省的目录中的点线为中文习惯
+%    \begin{macrocode}
 \renewcommand*\l@chapter[2]{%
   \ifnum \c@tocdepth >\m@ne
     \addpenalty{-\@highpenalty}%
@@ -805,6 +900,15 @@
       \penalty\@highpenalty
     \endgroup
   \fi}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{参考文献}
+%
+% \begin{environment}{thebibliography}
+%
+% 修改~thebibliography~的定义以在目录中加入相应条目。
+%    \begin{macrocode}
 \renewenvironment{thebibliography}[1]
      {\Nchapter{\bibname}%
       \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
@@ -824,6 +928,29 @@
      {\def\@noitemerr
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
+%</cls>
+%    \end{macrocode}
+% \end{environment}
+%
+%
+% \subsection{发表文章目录}
+%
+%
+% 发表文章目录中的标签内容。
+%    \begin{macrocode}
+%<*cfg>
+%%
+%% labels in the publications
+%%
+\def\NJUT@label@publications{攻读硕士学位期间完成的学术成果}
+%</cfg>
+%    \end{macrocode}
+%
+% \begin{environment}{publications}
+%
+% 发表文章目录环境，在此环境中发表文章目录为一个单页（单章）。
+%    \begin{macrocode}
+%<*cls>
 \newenvironment{publications}[1]
      {\Nchapter{\NJUT@label@publications}%
       \@mkboth{\MakeUppercase\NJUT@label@publications}
@@ -844,9 +971,13 @@
      {\def\@noitemerr
        {\@latex@warning{Empty `publications' environment}}%
       \endlist}
-\newenvironment{resume}
-{\Nchapter{\NJUT@label@resume}}
-{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{Publications}
+%
+% 发表文章目录环境，在此环境中发表文章目录为一个列表，和一般列表环境类似。
+%    \begin{macrocode}
 \newenvironment{Publications}[1]{
   \noindent {\heiti \NJUT@label@publications}%
   \list{\@biblabel{\@arabic\c@enumiv}}%
@@ -867,13 +998,51 @@
     {\@latex@warning{Empty `publications' environment}}%
   \endlist
 }
-
+%</cls>
+%    \end{macrocode}
+% \end{environment}
+%
+% \subsection{简历}
+%
+% 简历中的标签内容。
+%    \begin{macrocode}
+%<*cfg>
+%%
+%% labels in the resume
+%%
+\def\NJUT@label@resume{简\NJUTspace 历}
+%</cfg>
+%    \end{macrocode}
+%
+% \begin{environment}{resume}
+%
+% 个人简历环境，单页。
+%    \begin{macrocode}
+%<*cls>
+\newenvironment{resume}
+{\Nchapter{\NJUT@label@resume}}
+{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{resumesection}
+%
+% 简历中的项目环境。
+%    \begin{macrocode}
 \newenvironment{resumesection}[1]
   {{\noindent\normalfont\bfseries #1}
    \list{}{\labelwidth\z@
            \leftmargin 2\ccwd}
    \item\relax}
   {\endlist}
+%    \end{macrocode}
+% \end{environment}
+%
+%
+% \begin{environment}{resumelist}
+%
+% 简历中的列表项目环境。
+%    \begin{macrocode}
 \newenvironment{resumelist}[1]
   {{\noindent\normalfont\bfseries #1}
    \list{}{\labelwidth\z@
@@ -882,55 +1051,44 @@
            \listparindent\itemindent}
    \item\relax}
   {\endlist}
-\renewenvironment{thanks}
-  {\Nchapter{\NJUT@label@thanks}}
-  {}
-\setcounter{secnumdepth}{4}
-\newtheoremstyle{break}% name
-  {}%      Space above, empty = `usual value'
-  {}%      Space below
-  {\itshape}% Body font
-  {}%         Indent amount (empty = no indent, \parindent = para indent)
-  {\bfseries}% Thm head font
-  {.}%        Punctuation after thm head
-  {\newline}% Space after thm head: \newline = linebreak
-  {}%         Thm head spec
 %</cls>
 %    \end{macrocode}
+% \end{environment}
 %
+% \subsection{致谢}
+%
+% 致谢中的标签内容。
 %    \begin{macrocode}
 %<*cfg>
-%%
-%% labels in the abstract page
-%%
-\def\NJUT@abs@label@bar{南京大学研究生毕业论文中文摘要首页用纸}
-\def\NJUT@abs@label@englishbar{南京大学研究生毕业论文英文摘要首页用纸}
-\def\NJUT@abs@label@title{毕业论文题目：}
-\def\NJUT@abs@label@major{专业}
-\def\NJUT@abs@label@author{级硕士生姓名：}
-\def\NJUT@abs@label@advisor{指导教师（姓名、职称）：}
-\def\NJUT@abs@label@abstract{摘　要}
-\def\NJUT@abs@label@englishabstract{Abstract}
-\def\NJUT@abs@label@keywords{关键词：}
-\def\NJUT@abs@label@englishkeywords{Keywords:~}
-
-
-
-
-
-
-%%
-%% labels in the publications
-%%
-\def\NJUT@label@publications{攻读硕士学位期间完成的学术成果}
-%%
-%% labels in the resume
-%%
-\def\NJUT@label@resume{简\NJUTspace 历}
 %%
 %% labels in the thanks
 %%
 \def\NJUT@label@thanks{致\NJUTspace 谢}
+%</cfg>
+%    \end{macrocode}
+%
+% \begin{environment}{thanks}
+%
+% 致谢环境。
+%    \begin{macrocode}
+%<*cls>
+\renewenvironment{thanks}
+  {\Nchapter{\NJUT@label@thanks}}
+  {}
+%    \end{macrocode}
+% \end{environment}
+%
+% \subsection{章节标题}
+%
+% 章节标题深度。
+%    \begin{macrocode}
+\setcounter{secnumdepth}{4}
+%</cls>
+%    \end{macrocode}
+%
+% 章标题的缺省格式
+%    \begin{macrocode}
+%<*cfg>
 %%
 %% the chapter title format
 %%
@@ -938,6 +1096,10 @@
 \def\CTEX@chapter@titleformat{\bfseries\heiti\zihao{-3}}
 \def\CTEX@chapter@beforeskip{15\p@}
 \def\CTEX@chapter@afterskip{12\p@}
+%    \end{macrocode}
+%
+% 节标题的缺省格式
+%    \begin{macrocode}
 %%
 %% the section title format
 %%
@@ -958,6 +1120,29 @@
 \def\CTEX@subsubsection@indent{2\ccwd}
 \def\CTEX@subsubsection@beforeskip{-2ex \@plus -1ex \@minus -.2ex}
 \def\CTEX@subsubsection@afterskip{1.0ex \@plus .2ex}
+%</cfg>
+%    \end{macrocode}
+%
+% \subsection{定理标题}
+%
+% 独立定理标题样式（标题后换行）。
+%    \begin{macrocode}
+%<*cls>
+\newtheoremstyle{break}% name
+  {}%      Space above, empty = `usual value'
+  {}%      Space below
+  {\itshape}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {.}%        Punctuation after thm head
+  {\newline}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+%</cls>
+%    \end{macrocode}
+%
+% 各种定理类型标题。
+%    \begin{macrocode}
+%<*cfg>
 %%
 %% the theorems definitions
 %%
@@ -981,4 +1166,15 @@
 \renewcommand{\proofname}{{\bf 证明}}
 %</cfg>
 %    \end{macrocode}
+%
+% \Finale
+%
+% \setcounter{IndexColumns}{2}
+% \IndexPrologue{\section*{索引} {\it 意大利体的数字表示描述对应索引项的页码；
+%                带下划线的数字表示定义对应索引项的代码行号；
+%                罗马字体的数字表示使用对应索引项的代码行号。}}
+%
+% \GlossaryPrologue{\section*{版本更新}}
+%
+% \PrintIndex \PrintChanges
 \endinput 
