@@ -99,9 +99,7 @@
   \thispagestyle{empty}%
   \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 \renewcommand{\floatpagefraction}{0.80}
-%%
 %% Bib styles and DIYed \cite commands.
-%%
 \bibliographystyle{NJUthesis}
 %% Author-year mode label with numerical mode indexes.
 %% Jack (2000)
@@ -112,10 +110,7 @@
 \newcommand\citenjupr[1]{\protect\citeauthor{#1}, \protect\citeyear{#1}}
 %% Jack (2000)
 \newcommand\Citenju[1]{\protect\Citeauthor{#1} (\protect\citeyear{#1})}
-%%
-%%
 \newcommand\NJUTspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}
-%%
 \def\NJUT@getfileinfo#1 #2 #3\relax#4\relax{%
   \def\NJUTfiledate{#1}%
   \def\NJUTfileversion{#2}%
@@ -162,6 +157,16 @@
 \newcommand\footdate[1]{\def\NJUT@value@footdate{#1}}
 \newcommand\submitdate[1]{\def\NJUT@value@submitdate{#1}}
 \newcommand\defenddate[1]{\def\NJUT@value@defenddate{#1}}
+%%
+%% command to fill string values in the english title page
+%%
+\newcommand\englishtitle[1]{\def\NJUT@value@englishtitle{#1}}
+\newcommand\englishauthor[1]{\def\NJUT@value@englishauthor{#1}}
+\newcommand\englishadvisor[1]{\def\NJUT@value@englishadvisor{#1}}
+\newcommand\englishinstitute[1]{\def\NJUT@value@englishinstitute{#1}}
+\newcommand\englishdate[1]{\def\NJUT@value@englishdate{#1}}
+\newcommand\englishdegree[1]{\def\NJUT@value@englishdegree{#1}}
+\newcommand\englishmajor[1]{\def\NJUT@value@englishmajor{#1}}
 %%
 %% Make Chinese title page with/without National library cover page
 %%
@@ -264,16 +269,6 @@
     }
   \fi
 }
-%%
-%% command to fill string values in the english title page
-%%
-\newcommand\englishtitle[1]{\def\NJUT@value@englishtitle{#1}}
-\newcommand\englishauthor[1]{\def\NJUT@value@englishauthor{#1}}
-\newcommand\englishadvisor[1]{\def\NJUT@value@englishadvisor{#1}}
-\newcommand\englishinstitute[1]{\def\NJUT@value@englishinstitute{#1}}
-\newcommand\englishdate[1]{\def\NJUT@value@englishdate{#1}}
-\newcommand\englishdegree[1]{\def\NJUT@value@englishdegree{#1}}
-\newcommand\englishmajor[1]{\def\NJUT@value@englishmajor{#1}}
 %%
 %% english title page
 %%

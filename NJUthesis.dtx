@@ -118,9 +118,13 @@
 %
 % \tableofcontents
 %
-% \section{带注释的源代码}
+% \section{源代码完全注释}
 %
 % \subsection{document class~选项}
+%
+% 标签~\texttt{<*cls></cls>}~和~\texttt{<*cfg></cfg>}~
+% 是用于~\texttt{.dtx}~文件中的控制标签，并不属于文档类内容或命令，
+% 在下文中这些标签可以完全忽视。
 %
 %    \begin{macrocode}
 %<*cls>
@@ -229,10 +233,10 @@
 %% sort and compress citations
 \RequirePackage[sort&compress,numbers]{natbib}
 %    \end{macrocode}
-% 
+%
 % 自定义链接颜色和设置超链接颜色的宏包。设置链接颜色（即图片、公式和目录引用
 % 处的链接颜色）为黑色；设置参考文献引用处的颜色为深蓝色。
-% 
+%
 %    \begin{macrocode}
 %% Define link colors
 \RequirePackage{color}
@@ -285,10 +289,13 @@
 \renewcommand{\floatpagefraction}{0.80}
 %    \end{macrocode}
 %
+% \begin{macro}{\cite}
+%
+% ~\BibTeX{}~参考文献样式和自定义的~\cs{cite}~命令。除非你清楚地知道下面各个命令
+% 什么意思，否则不建议使用它，只当这些命令不存在就好了。
+%
 %    \begin{macrocode}
-%%
 %% Bib styles and DIYed \cite commands.
-%%
 \bibliographystyle{NJUthesis}
 %% Author-year mode label with numerical mode indexes.
 %% Jack (2000)
@@ -299,10 +306,38 @@
 \newcommand\citenjupr[1]{\protect\citeauthor{#1}, \protect\citeyear{#1}}
 %% Jack (2000)
 \newcommand\Citenju[1]{\protect\Citeauthor{#1} (\protect\citeyear{#1})}
-%%
-%%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\NJUTspace}
+%
+% 中文空格，用于章节标题中。
+%
+%    \begin{macrocode}
 \newcommand\NJUTspace{\protect\CTEX@spaceChar\protect\CTEX@spaceChar}
+%    \end{macrocode}
+% \end{macro}
+%
+% 使用上面定义的中文空格修改~\texttt{ctex}~宏包的缺省定义。
+%
+%    \begin{macrocode}
+%</cls>
+%<*cfg>
 %%
+%% the setup of ctex package
+%%
+\def\CTEX@contentsname{目\NJUTspace 录}
+\def\CTEX@listfigurename{插\NJUTspace 图}
+\def\CTEX@listtablename{表\NJUTspace 格}
+%</cfg>
+%    \end{macrocode}
+%
+% \begin{macro}{\NJUT@getfileinfo}
+%
+% 获得版本信息。
+%
+%    \begin{macrocode}
+%<*cls>
 \def\NJUT@getfileinfo#1 #2 #3\relax#4\relax{%
   \def\NJUTfiledate{#1}%
   \def\NJUTfileversion{#2}%
@@ -313,9 +348,140 @@
   \edef\reserved@a{\csname ver@NJUthesis.cls\endcsname}
 \fi
 \expandafter\NJUT@getfileinfo\reserved@a\relax? ? \relax\relax
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\NJUT@underline}
+%
+% 自定义的下划线宏，主要用于封面中。
+%
+%    \begin{macrocode}
 \def\NJUT@underline[#1]#2{%
   \CTEXunderline{\hbox to #1{\hfill#2\hfill}}}
 \def\NJUTunderline{\@ifnextchar[\NJUT@underline\CTEXunderline}
+%</cls>
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{封面}
+%
+% 南京大学学位论文的封面包括南大的中英文封面，此外，博士学位论文需要
+% 国家图书馆封面。
+%
+% \subsubsection{封面的标签}
+%
+% 下面的代码是封面（国家图书馆、南大中英文）中使用到的标签，这些内容一般
+% 不需要手动修改。
+%
+%    \begin{macrocode}
+%<*cfg>
+%%
+%% labels in the National library (NLC) cover page
+%%
+\def\NJUT@nlc@label@classification{分类号}
+\def\NJUT@nlc@label@confidential{密级}
+\def\NJUT@nlc@label@UDC{UDC}
+\def\NJUT@nlc@label@title{学~位~论~文}
+\def\NJUT@nlc@label@quotetitle{（题名和副题名）}
+\def\NJUT@nlc@label@author{（作者姓名）}
+\def\NJUT@nlc@label@advisor{指导教师姓名、职务、职称、学位、单位名称及地址}
+\def\NJUT@nlc@label@degree{申请学位级别}
+\def\NJUT@nlc@label@major{专业名称}
+\def\NJUT@nlc@label@submitdate{论文提交日期}
+\def\NJUT@nlc@label@defenddate{论文答辩日期}
+\def\NJUT@nlc@label@school{学位授予单位和日期}
+\def\NJUT@nlc@label@chairman{答辩委员会主席：}
+\def\NJUT@nlc@label@reviwer{评阅人：}
+%%
+%% labels in the NJU cover page
+%%
+\def\NJUT@label@thesis{研~~究~~生~~毕~~业~~论~~文}
+\def\NJUT@label@apply{（申请\NJUT@value@degree学位）}
+\def\NJUT@label@title{论　文　题　目}
+\def\NJUT@label@author{作　者　姓　名}
+\def\NJUT@label@grade{2007}
+\def\NJUT@label@advisor{指　导　教　师}
+\def\NJUT@label@degree{硕士}
+\def\NJUT@label@major{学科、专业方向}
+\def\NJUT@label@researchfield{研　究　方　向}
+%%
+%% labels in the backinfo page
+%%
+\def\NJUT@back@label@advisor{指~~~导~~~教~~~师}
+\def\NJUT@back@label@studentnum{学　　　　号}
+\def\NJUT@back@label@defenddate{\NJUT@nlc@label@defenddate}
+\def\NJUT@back@label@sign{　　　　（签字）}
+%%
+%% labels in the english title page
+%%
+\def\NJUT@label@englishadvisor{Directed by}
+\def\NJUT@label@englishstatement{Submitted in partial fulfilment
+  of the requirements\\ for the degree of \NJUT@value@englishdegree \
+  in \NJUT@value@englishmajor}
+%%
+%% string values filled in the english title page
+%%
+\def\NJUT@value@englishtitle{(English Title of Thesis)}
+\def\NJUT@value@englishauthor{(Author Name)}
+\def\NJUT@value@englishadvisor{(Supervisor's Name)}
+\def\NJUT@value@englishinstitute{(Institute Name)}
+\def\NJUT@value@englishdate{%
+  \ifcase\month\or
+    January\or February\or March\or April\or May\or June\or
+    July\or August\or September\or October\or November\or December\fi
+  , \number\year}
+\def\NJUT@value@englishdegree{Ph.D.}
+\def\NJUT@value@englishmajor{}
+%    \end{macrocode}
+%
+% \subsubsection{封面的需要填写的值}
+%
+% 下面内容是封面中需要填写的值，以及它们的默认内容。
+%
+%    \begin{macrocode}
+%%
+%% string values filled only in the National library (NLC) cover page
+%%
+\def\NJUT@nlc@value@classification{}
+\def\NJUT@nlc@value@confidential{}
+\def\NJUT@nlc@value@UDC{}
+\def\NJUT@nlc@value@titlelinea{}
+\def\NJUT@nlc@value@titlelineb{}
+\def\NJUT@nlc@value@titlelinec{}
+\def\NJUT@nlc@value@advisorinfo{}
+\def\NJUT@nlc@value@chairman{}
+\def\NJUT@nlc@value@reviewera{}
+\def\NJUT@nlc@value@reviewerb{}
+\def\NJUT@nlc@value@reviewerc{}
+\def\NJUT@nlc@value@reviewerd{}
+\def\NJUT@nlc@value@footdate{　　年　月　日}
+%%
+%% string values filled in the NJU cover page
+%%
+\def\NJUT@value@school{南京大学}
+\ifNJUT@phd
+  \def\NJUT@value@degree{博士}
+\else \ifNJUT@master
+    \def\NJUT@value@degree{硕士}
+    \fi
+\fi
+\def\NJUT@value@title{论文题目}
+\def\NJUT@value@titlemark{\NJUT@value@title}
+\def\NJUT@value@author{}
+\def\NJUT@value@advisor{}
+\def\NJUT@value@major{}
+\def\NJUT@value@researchfield{研究方向}
+\def\NJUT@value@submitdate{}
+\def\NJUT@value@defenddate{}
+\def\NJUT@value@footdate{}
+%</cfg>
+%    \end{macrocode}
+%
+% 下面的命令定义了用来填写上面一些值的命令，
+% 你应该在文档中使用这些命令定义以上这些值。
+%
+%    \begin{macrocode}
+%<*cls>
 %%
 %% command to file string values only in the National library cover page
 %%
@@ -349,6 +515,26 @@
 \newcommand\footdate[1]{\def\NJUT@value@footdate{#1}}
 \newcommand\submitdate[1]{\def\NJUT@value@submitdate{#1}}
 \newcommand\defenddate[1]{\def\NJUT@value@defenddate{#1}}
+%%
+%% command to fill string values in the english title page
+%%
+\newcommand\englishtitle[1]{\def\NJUT@value@englishtitle{#1}}
+\newcommand\englishauthor[1]{\def\NJUT@value@englishauthor{#1}}
+\newcommand\englishadvisor[1]{\def\NJUT@value@englishadvisor{#1}}
+\newcommand\englishinstitute[1]{\def\NJUT@value@englishinstitute{#1}}
+\newcommand\englishdate[1]{\def\NJUT@value@englishdate{#1}}
+\newcommand\englishdegree[1]{\def\NJUT@value@englishdegree{#1}}
+\newcommand\englishmajor[1]{\def\NJUT@value@englishmajor{#1}}
+%    \end{macrocode}
+%
+% \subsubsection{生成封面}
+%
+% \begin{macro}{\maketitle}
+%
+% 生成南大中文封面的命令。当文档类选项中包含~\texttt{phd}~时，该命令自动
+% 生成国家图书馆封面。
+%
+%    \begin{macrocode}
 %%
 %% Make Chinese title page with/without National library cover page
 %%
@@ -451,16 +637,14 @@
     }
   \fi
 }
-%%
-%% command to fill string values in the english title page
-%%
-\newcommand\englishtitle[1]{\def\NJUT@value@englishtitle{#1}}
-\newcommand\englishauthor[1]{\def\NJUT@value@englishauthor{#1}}
-\newcommand\englishadvisor[1]{\def\NJUT@value@englishadvisor{#1}}
-\newcommand\englishinstitute[1]{\def\NJUT@value@englishinstitute{#1}}
-\newcommand\englishdate[1]{\def\NJUT@value@englishdate{#1}}
-\newcommand\englishdegree[1]{\def\NJUT@value@englishdegree{#1}}
-\newcommand\englishmajor[1]{\def\NJUT@value@englishmajor{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\makeenglishtitle}
+%
+% 生成南大英文封面的命令。
+%
+%    \begin{macrocode}
 %%
 %% english title page
 %%
@@ -491,6 +675,10 @@
     \cleardoublepage
   \fi
 }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 
 \fancypagestyle{plain}{%
   \fancyhf{}
@@ -713,50 +901,6 @@
 %    \begin{macrocode}
 %<*cfg>
 %%
-%% the setup of ctex package
-%%
-\def\CTEX@contentsname{目\NJUTspace 录}
-\def\CTEX@listfigurename{插\NJUTspace 图}
-\def\CTEX@listtablename{表\NJUTspace 格}
-
-
-%%
-%% labels in the National library (NLC) cover page
-%%
-\def\NJUT@nlc@label@classification{分类号}
-\def\NJUT@nlc@label@confidential{密级}
-\def\NJUT@nlc@label@UDC{UDC}
-\def\NJUT@nlc@label@title{学~位~论~文}
-\def\NJUT@nlc@label@quotetitle{（题名和副题名）}
-\def\NJUT@nlc@label@author{（作者姓名）}
-\def\NJUT@nlc@label@advisor{指导教师姓名、职务、职称、学位、单位名称及地址}
-\def\NJUT@nlc@label@degree{申请学位级别}
-\def\NJUT@nlc@label@major{专业名称}
-\def\NJUT@nlc@label@submitdate{论文提交日期}
-\def\NJUT@nlc@label@defenddate{论文答辩日期}
-\def\NJUT@nlc@label@school{学位授予单位和日期}
-\def\NJUT@nlc@label@chairman{答辩委员会主席：}
-\def\NJUT@nlc@label@reviwer{评阅人：}
-%%
-%% labels in the NJU cover page
-%%
-\def\NJUT@label@thesis{研~~究~~生~~毕~~业~~论~~文}
-\def\NJUT@label@apply{（申请\NJUT@value@degree学位）}
-\def\NJUT@label@title{论　文　题　目}
-\def\NJUT@label@author{作　者　姓　名}
-\def\NJUT@label@grade{2007}
-\def\NJUT@label@advisor{指　导　教　师}
-\def\NJUT@label@degree{硕士}
-\def\NJUT@label@major{学科、专业方向}
-\def\NJUT@label@researchfield{研　究　方　向}
-%%
-%% labels in the backinfo page
-%%
-\def\NJUT@back@label@advisor{指~~~导~~~教~~~师}
-\def\NJUT@back@label@studentnum{学　　　　号}
-\def\NJUT@back@label@defenddate{\NJUT@nlc@label@defenddate}
-\def\NJUT@back@label@sign{　　　　（签字）}
-%%
 %% labels in the abstract page
 %%
 \def\NJUT@abs@label@bar{南京大学研究生毕业论文中文摘要首页用纸}
@@ -771,63 +915,9 @@
 \def\NJUT@abs@label@englishkeywords{Keywords:~}
 
 
-%%
-%% string values filled only in the National library (NLC) cover page
-%%
-\def\NJUT@nlc@value@classification{}
-\def\NJUT@nlc@value@confidential{}
-\def\NJUT@nlc@value@UDC{}
-\def\NJUT@nlc@value@titlelinea{}
-\def\NJUT@nlc@value@titlelineb{}
-\def\NJUT@nlc@value@titlelinec{}
-\def\NJUT@nlc@value@advisorinfo{}
-\def\NJUT@nlc@value@chairman{}
-\def\NJUT@nlc@value@reviewera{}
-\def\NJUT@nlc@value@reviewerb{}
-\def\NJUT@nlc@value@reviewerc{}
-\def\NJUT@nlc@value@reviewerd{}
-\def\NJUT@nlc@value@footdate{　　年　月　日}
-%%
-%% string values filled in the NJU cover page
-%%
-\def\NJUT@value@school{南京大学}
-\ifNJUT@phd
-  \def\NJUT@value@degree{博士}
-\else \ifNJUT@master
-    \def\NJUT@value@degree{硕士}
-    \fi
-\fi
-\def\NJUT@value@title{论文题目}
-\def\NJUT@value@titlemark{\NJUT@value@title}
-\def\NJUT@value@author{}
-\def\NJUT@value@advisor{}
-\def\NJUT@value@major{}
-\def\NJUT@value@researchfield{研究方向}
-\def\NJUT@value@submitdate{}
-\def\NJUT@value@defenddate{}
-\def\NJUT@value@footdate{}
 
-%%
-%% labels in the english title page
-%%
-\def\NJUT@label@englishadvisor{Directed by}
-\def\NJUT@label@englishstatement{Submitted in partial fulfilment
-  of the requirements\\ for the degree of \NJUT@value@englishdegree \
-  in \NJUT@value@englishmajor}
-%%
-%% string values filled in the english title page
-%%
-\def\NJUT@value@englishtitle{(English Title of Thesis)}
-\def\NJUT@value@englishauthor{(Author Name)}
-\def\NJUT@value@englishadvisor{(Supervisor's Name)}
-\def\NJUT@value@englishinstitute{(Institute Name)}
-\def\NJUT@value@englishdate{%
-  \ifcase\month\or
-    January\or February\or March\or April\or May\or June\or
-    July\or August\or September\or October\or November\or December\fi
-  , \number\year}
-\def\NJUT@value@englishdegree{Ph.D.}
-\def\NJUT@value@englishmajor{}
+
+
 
 %%
 %% labels in the publications
