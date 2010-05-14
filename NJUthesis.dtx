@@ -16,6 +16,25 @@
 %<*!(cfg|fd)>
 % \fi
 %
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+%
+% \CheckSum{900}
+%
 % \iffalse meta-comment
 %</!(cfg|fd)>
 %
@@ -26,7 +45,7 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1995/12/01]
 %<cls>\ProvidesClass{NJUthesis}
 %<cfg>\ProvidesFile{NJUthesis.cfg}
-  [2010/05/13 v0.2c NJUthesis
+  [2010/05/13 v0.2c NJUthesis%
 %<cls>   document class]
 %<cfg>   configuration file]
 %
@@ -35,19 +54,11 @@
 %</driver>
 %
 %<*driver>
-\documentclass{ltxdoc}
+\documentclass[a4paper]{ltxdoc}
 \usepackage{ctex}
- \topmargin 1 true cm
- \oddsidemargin 2.5 true cm
- \evensidemargin 2.5 true cm
- \textheight 21 true cm
- \textwidth 14 true cm
 \EnableCrossrefs
- %\DisableCrossrefs % Say \DisableCrossrefs if index is ready
 \CodelineIndex
 \RecordChanges      % Gather update information
- %\OnlyDescription  % comment out for implementation details
- %\OldMakeindex     % use if your MakeIndex is pre-v2.9
 \begin{document}
   \DocInput{NJUthesis.dtx}
 \end{document}
@@ -55,41 +66,147 @@
 %
 % \fi
 %
+% \changes{v0.0}{2004/08/06}{Initial version}
+% \changes{v0.1}{2004/09/05}{增加个人简历环境~resume~以及~resumesection~和~resumelist}
+%
+%
+% \DoNotIndex{\begin,\end,\begingroup,\endgroup}
+% \DoNotIndex{\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
+% \DoNotIndex{\let,\def,\xdef,\newcommand,\renewcommand}
+% \DoNotIndex{\expandafter,\csname,\endcsname,\relax,\protect}
+% \DoNotIndex{\Huge,\huge,\LARGE,\Large,\large,\normalsize}
+% \DoNotIndex{\small,\footnotesize,\scriptsize,\tiny}
+% \DoNotIndex{\normalfont,\bfseries,\slshape,\interlinepenalty}
+% \DoNotIndex{\hfil,\par,\vskip,\vspace,\quad}
+% \DoNotIndex{\centering,\raggedright}
+% \DoNotIndex{\c@secnumdepth,\@startsection,\@setfontsize}
+% \DoNotIndex{\ ,\@plus,\@minus,\p@,\z@,\@m,\@M,\@ne,\m@ne}
+% \DoNotIndex{\@@par}
+%
+% \GetFileInfo{NJUthesis.dtx}
+%
+% \MakeShortVerb{\|}
+% \setcounter{StandardModuleDepth}{1}
+%
+% \newcommand{\ctex}{\texttt{ctex}}
+% \newcommand{\ctexorg}{\texttt{ctex.org}}
+% \newcommand{\NJUthesis}{\texttt{NJUthesis}}
+%
+% \setlength{\parskip}{0.75ex plus .2ex minus .5ex}
+% \renewcommand{\baselinestretch}{1.2}
+%
+%
+% \makeatletter
+% \def\parg#1{\mbox{$\langle${\it #1\/}$\rangle$}}
+% \def\@smarg#1{{\tt\string{}\parg{#1}{\tt\string}}}
+% \def\@marg#1{{\tt\string{}{\rm #1}{\tt\string}}}
+% \def\marg{\@ifstar\@smarg\@marg}
+% \def\@soarg#1{{\tt[}\parg{#1}{\tt]}}
+% \def\@oarg#1{{\tt[}{\rm #1}{\tt]}}
+% \def\oarg{\@ifstar\@soarg\@oarg}
+% \makeatother
+%
+% \title{\NJUthesis~宏包说明\thanks
+%   {版本~\fileversion{}，最后修改日期~\filedate{}。}}
+% \author{\it 杨文博\thanks{http://solrex.org}}
+% \date{\small 文档生成日期：~\today}
+% \maketitle
+%
+% \begin{abstract}
+% FIXME
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{带注释的源代码}
+%
+% \subsection{document class~选项}
+%
+%    \begin{macrocode}
 %<*cls>
+%    \end{macrocode}
+%
+% 是否在封面背后打印导师签名信息？
+%
+% 默认：是，一般不需要修改。
+%
+% 关闭选项：\texttt{[nobackinfo]}。
+%
+%    \begin{macrocode}
 \newif\ifNJUT@backinfo \NJUT@backinfotrue
 \DeclareOption{nobackinfo}{\NJUT@backinfofalse}
-%</cls>
+%    \end{macrocode}
 %
-%<*cls>
+% 申请学位级别？
+%
+% 博士：\texttt{[phd]}；
+%
+% 硕士：\texttt{[master]}。
+%
+%    \begin{macrocode}
 \newif\ifNJUT@phd \NJUT@phdfalse
 \newif\ifNJUT@master \NJUT@masterfalse
 \DeclareOption{phd}{\NJUT@phdtrue}
 \DeclareOption{master}{\NJUT@mastertrue}
-%</cls>
+%    \end{macrocode}
 %
-%<*cls>
+% 使用~dvips、dvipdfm~来处理~DVI~文件，还是直接~pdflatex~生成~PDF~文件。
+%
+% 选项：\texttt{[dvips｜dvipdfm｜pdftex]}。
+%
+%    \begin{macrocode}
 \newif\ifNJUT@dvips \NJUT@dvipsfalse
 \DeclareOption{dvips}{\NJUT@dvipstrue}
 \DeclareOption{dvipdfm}{\NJUT@dvipsfalse}
 \DeclareOption{pdftex}{\NJUT@dvipsfalse}
+%    \end{macrocode}
+%
+% 把没有定义的选项传递给底层的文档类，在这里为~\texttt{ctexbook}~。
+%
+%    \begin{macrocode}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessOptions
-
-%</cls>
+%    \end{macrocode}
 %
-%<*cls>
+% 处理选项。
+%
+%    \begin{macrocode}
+\ProcessOptions\relax
+%    \end{macrocode}
+%
+% 装入缺省的文档类和选项，在这里为~\texttt{ctexbook}~。默认使用~A4~纸张。
+%
+%    \begin{macrocode}
 \LoadClass[cs4size,a4paper,fancyhdr,fntef]{ctexbook}[2005/11/25]
-%</cls>
+%    \end{macrocode}
 %
-%<*cls>
-%% check pdfTeX mode
-\RequirePackage{ifpdf}
+% \subsection{使用的宏包和宏包参数}
+%
+% 下面的代码装入一些常用的宏包。
+%
+% 和数学公式、字母相关的宏包：
+%
+%    \begin{macrocode}
 %% math packages
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,bm}
+%    \end{macrocode}
+%
+% 和图片引用相关的宏包，另外，为了包含南京大学的校徽和毛笔校名图片，
+% 声明了图片应该存放的路径。
+%
+%    \begin{macrocode}
 %% graphics packages
 \RequirePackage{graphicx}
-%% sort and compress citations
-\RequirePackage[sort,numbers]{natbib}
+%% We put NJU logo in the subdir figures/, so we must declear it here.
+\graphicspath{{figures/}}
+%    \end{macrocode}
+%
+% 检查~pdfTeX~模式的宏包，并根据模式选择使用不同的~hyperref~宏包参数。
+% 不同图片格式的默认后缀也在此列出：pdftex~模式下图片后缀名为~\texttt{.pdf}，
+% 其它模式下图片后缀名为~\texttt{.eps, .ps}。
+%
+%    \begin{macrocode}
+%% check pdfTeX mode
+\RequirePackage{ifpdf}
 %% packages and settings depend on PDF mode
 \ifpdf   % We're running pdfTeX in PDF mode
   \RequirePackage[pdftex]{hyperref}
@@ -104,9 +221,19 @@
   \fi
   \DeclareGraphicsExtensions{.eps,.ps}
 \fi
-%% We put NJU logo in the subdir figures/, so we must declear it here.
-\graphicspath{{figures/}}
-%%
+%    \end{macrocode}
+%
+% 美化参考文献排序和引用格式的宏包~\texttt{natbib}。
+%
+%    \begin{macrocode}
+%% sort and compress citations
+\RequirePackage[sort&compress,numbers]{natbib}
+%    \end{macrocode}
+% 
+% 自定义链接颜色和设置超链接颜色的宏包。设置链接颜色（即图片、公式和目录引用
+% 处的链接颜色）为黑色；设置参考文献引用处的颜色为深蓝色。
+% 
+%    \begin{macrocode}
 %% Define link colors
 \RequirePackage{color}
 \definecolor{darkblue}{rgb}{0,0,0.55}
@@ -117,22 +244,48 @@
                citecolor=darkblue,%
               plainpages=false,%
             pdfstartview=FitH}
+%    \end{macrocode}
+%
+% 读取配置文件中内容。
+%
+%    \begin{macrocode}
 \AtEndOfPackage{\makeatletter\input{NJUthesis.cfg}\makeatother}
-%%
+%    \end{macrocode}
+%
+% 使用~\texttt{geometry}~宏包定义页面布局，定义段间距。
+%
+%    \begin{macrocode}
 %% Define page layout.
 \RequirePackage{geometry}
 \geometry{top=3.5cm,bottom=3.5cm,left=3.2cm,right=3.2cm}
 \geometry{headheight=2.6cm,headsep=3mm,footskip=13mm}
+%    \end{macrocode}
+%
+% \subsection{全局设置}
+%
+% 定义段间距。
+%
+%    \begin{macrocode}
 \parskip 0.5ex plus 0.25ex minus 0.25ex
-%%
-%% DIY item style.
-\RequirePackage{enumitem}
-%%
-%%
+%    \end{macrocode}
+%
+% \begin{macro}{\cleardoublepage}
+% 重新定义~\cs{cleardoublepage}~以取消空白页的页眉。
+%
+%    \begin{macrocode}
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
   \thispagestyle{empty}%
   \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%    \end{macrocode}
+% \end{macro}
+%
+% 浮动图表必须占页面的~80\%~以上。
+%
+%    \begin{macrocode}
 \renewcommand{\floatpagefraction}{0.80}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 %%
 %% Bib styles and DIYed \cite commands.
 %%
@@ -555,7 +708,9 @@
   {\newline}% Space after thm head: \newline = linebreak
   {}%         Thm head spec
 %</cls>
+%    \end{macrocode}
 %
+%    \begin{macrocode}
 %<*cfg>
 %%
 %% the setup of ctex package
@@ -735,4 +890,5 @@
   \newtheorem{bcor}[thm]{推论~}
 \renewcommand{\proofname}{{\bf 证明}}
 %</cfg>
-\endinput
+%    \end{macrocode}
+\endinput 

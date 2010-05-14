@@ -1,9 +1,15 @@
 %%
-%% This is file `NJUthesis.cls', 
-%% modified based on CASthesis.cls by Wenbo Yang <http://solrex.org>.
-%% Homepage: http://share.solrex.org/njuthesis/
+%% This is file `NJUthesis.cls',
+%% generated with the docstrip utility.
 %%
-%% ----------------------------------------------------------------------
+%% The original source files were:
+%%
+%% NJUthesis.dtx  (with options: `cls')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2010 by Wenbo Yang <http://solrex.org> and
+%% any individual authors listed elsewhere in this file.
 %% 
 %% It may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.2
@@ -13,15 +19,8 @@
 %% and version 1.2 or later is part of all distributions of LaTeX
 %% version 1999/12/01 or later.
 %% 
-%% This file may only be distributed together with a copy of original
-%% source files. You may however distribute original source files
-%% without such generated files. Copying of this file is authorized
-%% only if either:
-%% (1) you make absolutely no changes to your copy, including name; OR
-%% (2) if you do make changes, you first rename it to some other name.
-%% 
-%% To produce the documentation run the original source files ending
-%% with `.dtx' through LaTeX.
+%% Homepage: http://share.solrex.org/njuthesis/ or
+%%           http://njuthesis.googlecode.com/
 %% 
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -41,33 +40,29 @@
 %%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{NJUthesis}
-  [2010/05/01 v0.2 NJUthesis
+  [2010/05/13 v0.2c NJUthesis%
    document class]
-%%
-%% options
-%%
 \newif\ifNJUT@backinfo \NJUT@backinfotrue
 \DeclareOption{nobackinfo}{\NJUT@backinfofalse}
-\newif\ifNJUT@dvips \NJUT@dvipsfalse
 \newif\ifNJUT@phd \NJUT@phdfalse
 \newif\ifNJUT@master \NJUT@masterfalse
 \DeclareOption{phd}{\NJUT@phdtrue}
 \DeclareOption{master}{\NJUT@mastertrue}
+\newif\ifNJUT@dvips \NJUT@dvipsfalse
 \DeclareOption{dvips}{\NJUT@dvipstrue}
 \DeclareOption{dvipdfm}{\NJUT@dvipsfalse}
 \DeclareOption{pdftex}{\NJUT@dvipsfalse}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
-\ProcessOptions
-
+\ProcessOptions\relax
 \LoadClass[cs4size,a4paper,fancyhdr,fntef]{ctexbook}[2005/11/25]
-%% check pdfTeX mode
-\RequirePackage{ifpdf}
 %% math packages
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,bm}
 %% graphics packages
 \RequirePackage{graphicx}
-%% sort and compress citations
-\RequirePackage[sort,numbers]{natbib}
+%% We put NJU logo in the subdir figures/, so we must declear it here.
+\graphicspath{{figures/}}
+%% check pdfTeX mode
+\RequirePackage{ifpdf}
 %% packages and settings depend on PDF mode
 \ifpdf   % We're running pdfTeX in PDF mode
   \RequirePackage[pdftex]{hyperref}
@@ -82,8 +77,8 @@
   \fi
   \DeclareGraphicsExtensions{.eps,.ps}
 \fi
-\graphicspath{{figures/}}
-%%
+%% sort and compress citations
+\RequirePackage[sort&compress,numbers]{natbib}
 %% Define link colors
 \RequirePackage{color}
 \definecolor{darkblue}{rgb}{0,0,0.55}
@@ -95,17 +90,11 @@
               plainpages=false,%
             pdfstartview=FitH}
 \AtEndOfPackage{\makeatletter\input{NJUthesis.cfg}\makeatother}
-%%
 %% Define page layout.
 \RequirePackage{geometry}
 \geometry{top=3.5cm,bottom=3.5cm,left=3.2cm,right=3.2cm}
 \geometry{headheight=2.6cm,headsep=3mm,footskip=13mm}
 \parskip 0.5ex plus 0.25ex minus 0.25ex
-%%
-%% DIY item style.
-\RequirePackage{enumitem}
-%%
-%%
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
   \thispagestyle{empty}%
   \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
