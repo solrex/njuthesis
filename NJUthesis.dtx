@@ -45,7 +45,7 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[1995/12/01]
 %<cls>\ProvidesClass{NJUthesis}
 %<cfg>\ProvidesFile{NJUthesis.cfg}
-  [2010/05/13 v0.2c NJUthesis%
+  [2010/05/14 v0.2d NJUthesis%
 %<cls>   document class]
 %<cfg>   configuration file]
 %
@@ -66,10 +66,6 @@
 %
 % \fi
 %
-% \changes{v0.0}{2004/08/06}{Initial version}
-% \changes{v0.1}{2004/09/05}{增加个人简历环境~resume~以及~resumesection~和~resumelist}
-%
-%
 % \DoNotIndex{\begin,\end,\begingroup,\endgroup}
 % \DoNotIndex{\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
 % \DoNotIndex{\let,\def,\xdef,\newcommand,\renewcommand}
@@ -89,7 +85,6 @@
 % \setcounter{StandardModuleDepth}{1}
 %
 % \newcommand{\ctex}{\texttt{ctex}}
-% \newcommand{\ctexorg}{\texttt{ctex.org}}
 % \newcommand{\NJUthesis}{\texttt{NJUthesis}}
 %
 % \setlength{\parskip}{0.75ex plus .2ex minus .5ex}
@@ -113,10 +108,46 @@
 % \maketitle
 %
 % \begin{abstract}
-% FIXME
+% \NJUthesis~宏包提供了一个南京大学学位论文的~\LaTeX{}~文档类，
+% 底层通过~\ctex~宏包支持~CCT~和~CJK~两种中文~\LaTeX{}~系统。
+%
+% 本文档是~\NJUthesis~宏包的说明文档，其中包含宏包文件的说明以及宏包源代码的
+% 完全注释。
 % \end{abstract}
 %
 % \tableofcontents
+% 
+% \section{宏包说明}
+%
+% \subsection{主要文件}
+%
+% 本宏包主要包含以下文件：
+%
+% \begin{itemize}
+% \item[NJUthesis.cls] 文档类文件，是宏包的主要文件，用户在文件头
+%   ~\cs{documentclass}~声明文档类为~NJUthesis~即可使用此文档类格式化文档。
+% \item[NJUthesis.cfg] 配合文档类的控制文件，里面主要是一些字符串的定义。
+% \item[NJUthesis.bst] 默认的~\BibTeX{}~样式文件，如果想修改样式，例如使用
+%   ~IEEEtran.bst~作为~\BibTeX{}~样式，只需要将~IEEEtran.bst~更名为
+%   ~NJUthesis.bst~即可。
+% \item[NJUthesis.pdf] 宏包帮助文档，即本文件。其中有对宏包的说明以及对
+%   宏包源文件的完全注释。
+% \item[template.tex] 随宏包包含的一个模板文件，该模板文件指示了该如何使用
+%   宏包提供的文档类。
+% \item[template.bib] 随宏包包含的模板文件相关的~\BibTeX{}~文献数据库，当用户
+%   使用~\BibTeX{}~时可以以其为一个很好的开端；当用户使用自定义的参考文献时，
+%   可以在模板文件中注释掉对其的引用并忽略该文件的存在。
+% \end{itemize}
+%
+% 下面的文件只提供给开发者，用户不需要了解。它们不在默认宏包中给出，
+% 需要自己使用~svn~从代码库中~check out。
+%
+% \begin{itemize}
+% \item[NJUthesis.dtx] 宏包源文件，用于生成~NJUthesis.cls、
+%   NJUthesis.cfg~和帮助文档，使用~\LaTeX{}~直接编译该文件即可获得宏包帮助文档。
+% \item[NJUthesis.ins] 宏包安装文件，使用~\LaTeX{}~直接编译该文件即可使用
+%   ~docstrip~从~NJUthesis.dtx~中获得~NJUthesis.cls~和~NJUthesis.cfg。
+% \end{itemize}
 %
 % \section{源代码完全注释}
 %
@@ -709,7 +740,7 @@
 \def\NJUT@abs@label@englishbar{南京大学研究生毕业论文英文摘要首页用纸}
 \def\NJUT@abs@label@title{毕业论文题目：}
 \def\NJUT@abs@label@major{专业}
-\def\NJUT@abs@label@author{级硕士生姓名：}
+\def\NJUT@abs@label@author{级\NJUT@value@degree生姓名：}
 \def\NJUT@abs@label@advisor{指导教师（姓名、职称）：}
 \def\NJUT@abs@label@abstract{摘　要}
 \def\NJUT@abs@label@englishabstract{Abstract}
@@ -942,7 +973,7 @@
 %%
 %% labels in the publications
 %%
-\def\NJUT@label@publications{攻读硕士学位期间完成的学术成果}
+\def\NJUT@label@publications{攻读\NJUT@value@degree学位期间完成的学术成果}
 %</cfg>
 %    \end{macrocode}
 %

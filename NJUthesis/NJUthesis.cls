@@ -40,7 +40,7 @@
 %%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{NJUthesis}
-  [2010/05/13 v0.2c NJUthesis%
+  [2010/05/14 v0.2d NJUthesis%
    document class]
 \newif\ifNJUT@backinfo \NJUT@backinfotrue
 \DeclareOption{nobackinfo}{\NJUT@backinfofalse}
