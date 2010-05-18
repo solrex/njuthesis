@@ -9,49 +9,45 @@
 
 \documentclass[dvipdfm, oneside, phd]{NJUthesis}
 % 可选参数：
-% nobackinfo 取消封二页导师签名信息
-% oneside/twoside 单面/双面打印
-%
-% 下面两个选一个：
-% phd 博士论文
-% master 硕士论文
-%
+%   nobackinfo 取消封二页导师签名信息
+%   oneside/twoside 单面/双面打印
+%   phd/master 博士/硕士论文
 % 下面三个选一个：
-% dvipdfm 使用 dvipdfm(x) 生成最终的 PDF 文档 (缺省设置）
+% dvipdfm 使用 dvipdfm(x) 生成最终的 PDF 文档 (缺省设置，不建议修改）
 % dvips 使用 dvips 生成最终的 PS 文档
 % pdftex 使用 pdfLaTeX 生成最终的 PDF 文档
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 导言区
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 小节标题靠左对齐
+\CTEXsetup[format+={\flushleft}]{section}
 
 % 设置链接颜色
 \hypersetup{
 % pdf 属性
              pdftitle={LaTeX Thesis Template of Nanjing University}, %
-            pdfauthor={Wenbo Yang}}
+            pdfauthor={Wenbo Yang}
+}
 
 % 表格
 \usepackage{longtable, multirow}
-% Times New Roman 字体
+% 英文使用 Times 字体
 \usepackage{times}
-% Matlab 源代码
+% 源代码
 \usepackage{fancyvrb}
+% 自定义列表样式
 \usepackage{enumitem}
 
-% 小节标题靠左对齐
-\CTEXsetup[format+={\flushleft}]{section}
-
-\makeatletter
-
-\makeatother
-
 \begin{document}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 封面部分
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%
-% 国家图书馆封面内容——仅博士需要填写并保证模板参数选择了 phd
-%
+% 国家图书馆封面内容字符串
+% 仅博士需要填写并保证模板参数选择了 phd
 \classification{}
 \confidential{}
 \UDC{}
@@ -66,7 +62,7 @@
 \reviewerd{XXX 教授}
 \nlcfootdate{2010~年~5~月~1~日}
 
-% 南大中文封面内容
+% 南大中文封面内容字符串
 \title{南京大学学位论文~\LaTeX{}~模板}
 \author{杨文博}
 \studentnum{~MGXXXXXX}
@@ -78,7 +74,7 @@
 \submitdate{2010~年~5~月~10~日}
 \defenddate{2010~年~6~月~1~日}
 
-% 英文封面内容
+% 英文封面内容字符串
 \englishtitle{\LaTeX{} Thesis Template of Nanjing University}
 \englishauthor{Wenbo Yang}
 \englishadvisor{Professor XX XXX}
@@ -88,10 +84,10 @@
 \englishmajor{Probability Theory and Mathematical Statistics}
 \englishdate{May 2010}
 
-% 封面
+% 制作封面命令
 \maketitle
 
-% 英文封面
+% 制作英文封面命令
 \makeenglishtitle
 
 
@@ -100,7 +96,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frontmatter
 
-  % 摘要
+% 中文摘要
 \begin{abstract}
 
 本文是南京大学学位论文的~\LaTeX{}~模板。目前不支持本科生学位论文格式。
@@ -108,31 +104,28 @@
 除了介绍~\LaTeX{}~文档类~\texttt{NJUthesis}~的用法外，本文还是一
 个简要的学位论文写作指南。
 
-
 \keywords{南京大学; 学位论文; \LaTeX{}~模板}
 
 \end{abstract}
 
-
+% 英文摘要
 \begin{englishabstract}
 
 This paper is a thesis template of Nanjing University. Besides that
 the usage of the \LaTeX{} document class \texttt{NJUthesis}, a brief
 guideline for writing the thesis is also included.
 
-
 \englishkeywords{Nanjing University (NJU), Thesis, \LaTeX{} Template}
 
 \end{englishabstract}
 
-
-
-% 目录
+% 生成目录命令
 \tableofcontents
+
 % 以下两个目录可根据具体情况注释掉
-% 表格目录
+% 生成表格目录命令
 \listoftables
-% 插图目录
+% 生成插图目录命令
 \listoffigures
 
 
@@ -141,17 +134,13 @@ guideline for writing the thesis is also included.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
 
-\chapter{引言}
+\chapter{基本使用帮助}
 \label{C:intro}
 
-\texttt{NJUthesis}~宏包在~\texttt{CASthesis}~宏包的基础上根据南京大学对学位
-论文的规定修改而来。宏包的另一个目的是简化学位论文的撰写，使得论文作者可以将
-精力集中到论文的内容上而不是浪费在版面设置上。同时宏包在符合学位论文撰写要求
-的基础上尽可能地进行美化，其中还参考了出版界的一些排版规范。
-
-本模板目前有两个选项：~\texttt{phd}~和~\texttt{master}~。当选择~
-\texttt{phd}~ 时，模板会自动生成国家图书馆格式的封面，但不包括书脊，书脊需要
-单独制作。
+NJUthesis~宏包针对南京大学对学位论文格式的规定制作的~\LaTeX{}~宏包，
+其目的是简化学位论文的撰写，使得论文作者可以将精力集中到论文的内容上而不是
+浪费在版面设置上。同时宏包在符合学位论文撰写要求的基础上尽可能地进行美化，
+其中还参考了出版界的一些排版规范。
 
 下面是~TODO~列表：
 
@@ -183,38 +172,162 @@ guideline for writing the thesis is also included.
 
 \section{下载与安装}
 
-\texttt{NJUthesis}~宏包的最新版本可以从~\url{http://njuthesis.googlecode.com/}~网站或者~
+NJUthesis~宏包的最新版本可以从~\url{http://njuthesis.googlecode.com/}~
+网站或者~
 \url{http://share.solrex.org/njuthesis/}~网站下载。
 
-\texttt{NJUthesis}~宏包主要包含两个文件：~\texttt{NJUthesis.cls}~和~
-\texttt{NJUthesis.cfg}，还有一个额外的~\texttt{BibTeX}~格式控制的~
-\texttt{NJUthesis.bst}，不过您完全可以使用自己的~\texttt{.bst}~文件或者根本
-不使用~\texttt{BibTeX}。
-
-简单方便的安装方法是将宏包文件和学位论文~\texttt{.tex}~文件放置在同一目录下
-。或者将宏包文件放置到~\TeX{}~系统的~localtexmf/tex/latex/njuthesis~目录下，
+对此宏包最简单的使用方法是直接修改~template.tex~和~template.bib~文件。如果您
+仅仅想安装宏包，可以将宏包文件放置到~\TeX{}~系统的~localtexmf/tex/latex/njuthesis~目录下，
 然后刷新~\TeX{}~系统的文件名数据库。
-
-同时，宏包还提供了一个使用模板，也就是这份说明文档的源文件。用户可以通过修改
-这个模板来编写自己的学位论文。
 
 关于安装过程的问题可以参考~C\TeX{}-FAQ~以及其他~\LaTeX{}~教材。
 
+\section{本模板打包的文件}
+
+关键文件：
+
+\begin{description}
+\item[NJUthesis.cls] 文档类文件，是~NJUthesis~宏包的主要文件，用户在文件头
+  ~\\documentclass~声明文档类为~NJUthesis~即可使用此文档类格式化文档。
+  一般不建议用户手工修改该文件。
+
+\item[NJUthesis.cfg] 配合文档类的控制文件，里面主要是一些字符串的定义。
+  用户可以编辑修改该文件。
+
+\item[template.tex] 随宏包包含的一个模板文件，该模板文件指示了该如何使用
+  宏包提供的文档类。用户可以使用该文件作为毕业论文源文件的很好的开端。
+
+\item[template.bib] 随宏包包含的模板文件相关的~BibTeX~文献数据库，当用户
+  使用~BibTeX~时可以以其为一个很好的开端；当用户使用自定义的参考文献时，
+  可以在模板文件中注释掉对其的引用并忽略该文件的存在。
+\end{description}
+
+辅助文件：
+
+\begin{description}
+\item[NJUthesis.bst] 默认的~BibTeX~样式文件，如果想修改样式，例如使用
+  ~IEEEtran.bst~作为~BibTeX~样式，只需要将~IEEEtran.bst~更名为
+  ~NJUthesis.bst~即可。
+
+\item[NJUthesis.pdf] 宏包帮助文档，其中有对宏包的说明以及对宏包源文件的
+  完全注释，适合高级用户修改文档类文件时参考。
+\end{description}
+
 \section{编译方法}
 
-如果您使用~\texttt{BibTeX}~，那么在~Windows~下您可以直接双击~
-\texttt{make.bat}~ 或者在命令行当前目录下执行~\texttt{make}~来生成~pdf~文件
-。
+下面以编译模板文件~template.tex~生成~template.pdf~为例，给出在不同情况下
+应该使用的编译命令流程。
 
-如果您不使用~\texttt{BibTeX}，那么您需要编辑~\texttt{make.bat}~内容去掉~
-\texttt{BibTeX}~ 命令。
+\subsection{Windows~平台下}
 
-\section{宏包定制}
+\subsubsection{标准编译命令}
 
-\texttt{NJUthesis}~宏包的设置都保存在~\texttt{NJUthesis.cfg}~文件中。用户可
-以在~\texttt{.tex}~中通过宏包提供的命令修改设置。对于常用的设置修改，如培养
-单位名称、专业名称等，可以直接在~\texttt{NJUthesis.cfg}~文件中进行。各培养单
-位可以修改后提供本单位统一的~\texttt{NJUthesis.cfg}~文件供本单位用户使用。
+如果您使用~BibTeX~管理参考文献，并且将自己的参考文件条目均添加到
+~tempalte.bib~中，编译命令应该为：
+
+\begin{Verbatim}[frame=lines]
+set ARTICLE=template
+latex %ARTICLE%.tex
+bibtex %ARTICLE%
+latex %ARTICLE%.tex
+gbk2uni %ARTICLE%
+latex %ARTICLE%.tex
+dvipdfmx %ARTICLE%.dvi
+pause
+\end{Verbatim}
+
+其中，bibtex~命令完成对参考文献的处理，gbk2uni~命令完成对~pdf~书签编码的
+处理，latex~命令生成~dvi~文件，dvipdfmx~命令生成~pdf~文件。如果您修改了
+模板文件名，例如将~template.tex~修改成~thesis-yang.tex~，那么您只需将第
+一句中的变量定义修改成~thesis-yang~即可。
+
+您可以将上面的命令保存成一个文件（并且建议这样做），例如~make.bat~，
+这样每次编译时双击该文件，
+或者在该目录的~Windows~命令行下输入~make~即可完成编译。
+
+\subsubsection{不使用~BibTeX}
+
+尽管我们强烈建议您使用~BibTeX~管理参考文献，如果您不使用~BibTeX~而是
+自己手写参考文献条目，那么您可以使用以下方式编译模板。
+
+首先在模板文件~template.tex~中注释掉引用~BibTeX~数据库的语句，即：
+
+\begin{Verbatim}[frame=lines]
+\bibliography{template}
+\end{Verbatim}
+
+\noindent 并加入手写的参考文献条目。
+
+其次使用下面命令编译模板文件：
+\begin{Verbatim}[frame=lines]
+set ARTICLE=template
+latex %ARTICLE%.tex
+latex %ARTICLE%.tex
+gbk2uni %ARTICLE%
+latex %ARTICLE%.tex
+dvipdfmx %ARTICLE%.dvi
+pause
+\end{Verbatim}
+
+\subsubsection{使用~pdflatex~命令}
+
+我们强烈不建议这样做，主要原因是本模板中文封面中的南京大学校徽和毛笔校名均
+使用的是~eps~图片，使用~pdflatex~无法对其进行正常处理。如果您希望使用
+~pdflatex~，那么您至少需要将这两张~eps~图片转成~jpg, png~或者~pdf~图片。
+
+出于对矢量图的偏好，我们目前不愿意提供与~pdflatex~兼容的图片格式，也不提供
+~pdflatex~的编译流程，因此您需要自己处理与~pdflatex~有关的兼容问题。
+
+\subsubsection{清理垃圾文件}
+
+latex~编译时会生成很多垃圾文件，下面的命令可以清理除~pdf~之外的垃圾文件，
+您可以将其保存成一个~clean.bat~的批处理文件，即可双击执行。
+
+\begin{Verbatim}[frame=lines]
+del /Q *.aux *.toc *.lon *.lor *.lof *.ilg *.idx *.ind
+del /Q *.out *.log *.exa *.nav *.snm *.bbl *.blg *.spl
+del /Q *.lot *.bak *~ *.dvi *.ps
+pause
+\end{Verbatim}
+
+如果想同时清除~pdf~文件，您可以在后面加上~*.pdf~，并保存成~dist-clean.bat~
+的批处理文件。
+
+\subsubsection{使用~cygwin~时的~Makefile}
+
+在~Windows~下使用~cygwin~时，用~Makefile~来对项目进行编译是再自然不过的想法。
+下面给出一个编译本模板可以使用的~Makefile。值得注意的是~Makefile~的缩进需要
+强制使用制表符。
+
+\begin{Verbatim}[frame=lines]
+ARTICLE=template
+ARTICLE_SRC=$(ARTICLE).tex $(ARTICLE).bib CASthesis.cfg
+IMAGES=
+
+all: article
+
+article: $(ARTICLE).pdf
+
+$(ARTICLE).pdf: $(ARTICLE_SRC) $(IMAGES)
+	latex $(ARTICLE).tex
+	bibtex $(ARTICLE)
+	latex $(ARTICLE).tex
+	gbk2uni $(ARTICLE)
+	latex $(ARTICLE).tex
+	dvipdfmx $(ARTICLE).dvi
+
+clean:
+	rm -f *.aux *.toc *.lon *.lor *.lof *.ilg *.idx *.ind
+	rm -f *.out *.log *.exa *.nav *.snm *.bbl *.blg *.spl
+	rm -f *.lot *.bak *~ *.dvi *.ps
+
+distclean: clean
+	rm -f *.pdf 
+\end{Verbatim}
+
+\subsection{Linux~平台下}
+
+Void.
 
 \section{问题反馈}
 
@@ -229,14 +342,58 @@ guideline for writing the thesis is also included.
 自己使用的是否为最新版本，以及列表中类似问题是否已经被提出。总之，谢谢您的
 支持！
 
-\chapter{相关工作}
-\label{C:REL}
+\chapter{论文撰写}
 
-本章主要介绍参考文献的格式，在~\texttt{NJUthesis}~中控制参考文献的主要有两个
+\section{文档类选项}
+
+NJUthesis~文档类提供有以下一些选项：
+
+\begin{description}
+
+\item[phd/master] 当选择~phd~时，生成南大博士论文，包含国家图书馆格式的封面，
+但不包括书脊，书脊需要单独制作；选择~master~时，生成南大硕士论文。
+
+\item[oneside/twoside] 当选择~oneside~时，生成单面打印格式论文；当选择
+~twoside~时，生成双面打印格式论文。双面打印格式会将封面、摘要起始页、
+章起始页全部放在奇数页上。
+
+\item[dvipdfm/dvips/pdflatex] 兼容的编译命令选项，最好使用默认的~dvipdfm。
+如果您对默认的命令有意见，那么我们认为您充分了解这几个命令的不同，那么您
+足以自己修改图片格式和决定编译流程，所以使用其它选项时请不要完全使用本文
+中的帮助。
+
+\end{description}
+
+\section{封面和摘要页的字符串}
+
+\texttt{NJUthesis}~宏包的设置都保存在~\texttt{NJUthesis.cfg}~文件中。用户可
+以在~\texttt{.tex}~中通过宏包提供的命令修改设置。对于常用的设置修改，如培养
+单位名称、专业名称等，可以直接在~\texttt{NJUthesis.cfg}~文件中进行。各培养单
+位可以修改后提供本单位统一的~\texttt{NJUthesis.cfg}~文件供本单位用户使用。
+
+\section{内容撰写}
+
+请阅读文献《\href{http://mirror.ctan.org/info/lshort/english/lshort.pdf}{The Not So Short Introduction to \LaTeXe{}}》
+~\cite{Oetiker2008}，或者其有点儿老的中文翻译版《\href{http://mirror.ctan.org/info/lshort/chinese/lshort-zh-cn.pdf}{一份不太简短的~\LaTeXe{}~介绍}》\cite{lshort-cn}。
+
+\section{插图}
+
+请阅读文献《\href{ftp://ftp.tex.ac.uk/tex-archive/info/epslatex.pdf}{Using Imported Graphics in \LaTeX{} and pdf\LaTeX{}}》
+~\cite{Reckdahl2006}，或者其有点儿老的中文翻译版《\href{http://www.ctex.org/documents/latex/graphics/}{\LaTeXe{} 插图指南}》
+~\cite{Wang1997}。
+
+\section{数学公式}
+
+请阅读文献《The LaTeX Companion》第~8~章``\href{http://media.cism.it/attachments/ch8.pdf}{Higher Mathematics}''\cite{Goossens1997}。
+
+
+\section{参考文献}
+
+本节主要介绍参考文献的格式，在~NJUthesis~中控制参考文献的主要有两个
 地方：
 
 \begin{verbatim}
-\RequirePackage[sort, numbers]{natbib}
+\RequirePackage[sort&compress, numbers]{natbib}
 \end{verbatim}
 
 \noindent 和
@@ -248,8 +405,6 @@ guideline for writing the thesis is also included.
 \noindent 第一个条目是~\texttt{natbib}~宏包，其规定了参考文献的排序和展示等
 格式，第二个条目是~\texttt{NJUthesis.bst}~文件，规定了参考文献条目的展示格式
 。期望使用下面的参考文献格式时，必须使用~\texttt{BibTeX}~来处理参考文献。
-
-\section{相关工作类~A}
 
 在~numeric mode~下（正如本文所用，将~\texttt{numbers}~作为~\texttt{natbib}~
  参数），参考文献的标准引用方式是使用方括号加文献序号的方式，例如~
@@ -267,8 +422,6 @@ guideline for writing the thesis is also included.
 \end{verbatim}
 
 \noindent 命令。
-
-\section{相关工作类~B}
 
 但是，如果您希望在~numeric mode~下使用~authoryear mode~（将
  ~\texttt{authoryear}~作为~\texttt{natbib}~参数）的标签样式，例如~
@@ -291,7 +444,13 @@ XX~可见~(\citenjupr{Xu2007}; \citenjupr{Wang1999})。
 \citenjup{Freeland1998}，XX~可见~(\citenjupr{Xu2007}; \citenjupr{Wang1999})
 。
 
-\subsection{相关工作类~B1}
+\section{其它问题}
+
+请到南京大学小百合论坛科技文献排版讨论区
+（网址：\url{http://bbs.nju.edu.cn/bbsdoc?board=Tex}），
+或者水木清华论坛~\LaTeX{}~讨论区
+（网址：\url{http://www.newsmth.net/bbsdoc.php?board=TeX}）
+提问。
 
 \chapter{常见问题}
 \label{C:FAQ}
@@ -707,8 +866,9 @@ GB7714文后参考文献著录规则。
 \backmatter
 
 % 参考文献
-% 使用 BibTeX
+% 使用 BibTeX，不使用 BibTeX 时注释掉下面一句。
 \bibliography{template}
+
 % 不使用 BibTeX
 %\begin{thebibliography}{2}
 %
