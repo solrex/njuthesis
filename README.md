@@ -10,7 +10,7 @@ NJUthesis 宏包在 [http://www.ctex.org/PackageCASthesis CASthesis] 宏包的�
 
 本宏包目前有两个选项： phd 和 master，分别对应于博士学位论文和硕士学位论文。当选择 phd 时，模板会自动生成国家图书馆格式的封面，但不包括书脊，书脊需要单独制作。
 
-本模板默认使用 BibTeX 处理参考文献，如果您不使用 BibTeX，您需要手动修改模板中的参考文献数据用引用方式。此外，推荐使用 [JabRef](http://jabref.sourceforge.net)  管理您的 bib 参考文献数据库（本宏包作者亦是该软件中文版译者），其使用方式可以参见这篇文章：[文献管理软件 JabRef 快速入门](http://blog.solrex.org/articles/jabref-quick-guide.html)。
+本模板默认使用 BibTeX 处理参考文献，如果您不使用 BibTeX，您需要手动修改模板中的参考文献数据用引用方式。此外，推荐使用 [JabRef](http://jabref.sourceforge.net)  管理您的 bib 参考文献数据库（本宏包作者亦是该软件中文版译者），其使用方式可以参见这篇文章：[文献管理软件 JabRef 快速入门](http://yangwenbo.com/articles/jabref-quick-guide.html)。
 
 ### 本宏包不支持
 

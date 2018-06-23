@@ -8,7 +8,7 @@
 %% 
 %% This is a generated file.
 %% 
-%% Copyright (C) 2010 by Wenbo Yang <http://solrex.org> and
+%% Copyright (C) 2010 by Wenbo Yang <http://yangwenbo.com> and
 %% any individual authors listed elsewhere in this file.
 %% 
 %% It may be distributed and/or modified under the
@@ -19,8 +19,7 @@
 %% and version 1.2 or later is part of all distributions of LaTeX
 %% version 1999/12/01 or later.
 %% 
-%% Homepage: http://share.solrex.org/njuthesis/ or
-%%           http://njuthesis.googlecode.com/
+%% Homepage: https://github.com/solrex/njuthesis
 %% 
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
